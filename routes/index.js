@@ -9,6 +9,7 @@ router.get('/', homeController.index);
 router.post('/contato', homeController.contato);
 router.get('/newsletter', homeController.newsletter);
 router.get('/cadastro', homeController.cadastro);
+router.post("/cadastro", homeController.salvarUsuario)
 router.get('/admin', adminController.index);
 
 module.exports = router;

@@ -65,29 +65,34 @@ const homeController = {
 
     res.render('newsletter', {email, title: 'Newsletter'});
   },
-
  cadastro: (req,res) => {
+res.render("cadastro", {title: "Cadastro"})
+ },
+
+ salvarUsuario: (req,res) => {
 
     let {nome, email, senha} =  req.body;
     // novo conteudo
     let infoCadastro = { nome, email, senha };
     // caminho e nome do arquivo
     let fileCadastro = path.join('db', 'cadastro.json');
-    
+    //let usuarioJson = JSON.stringify(objetoUsuario)
     let listaCadastro = [];
 
     if (fs.existsSync(fileCadastro)){
       // trazer informações do arquivo
       listaCadastro = fs.readFileSync(fileCadastro, {encoding: 'utf-8'});
       listaCadastro = JSON.parse(listaCadastro);
-    }
-    
-    //cria um array com uma posição
+    };
     listaCadastro.push(infoCadastro);
-    //converter conteudo para json
+    
     listaCadastro = JSON.stringify(listaCadastro);
-    //salva informações no arquivo
+    //cria um array com uma posição
     fs.writeFileSync(fileCadastro, listaCadastro);
+    
+    
+    //salva informações no arquivo
+    
 
     res.render('cadastro', {title:"cadastro"});
 
