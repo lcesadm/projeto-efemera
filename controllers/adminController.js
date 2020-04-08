@@ -12,8 +12,12 @@ const adminController = {
     let listaContato = fs.readFileSync(fileContato, {encoding: 'utf-8'});
     listaContato = JSON.parse(listaContato);
 
+    let fileCadastrados = path.join('db', 'usuarios.json');
+    let listaCadastrados = fs.readFileSync(fileCadastrados, {encoding: 'utf-8'});
+    listaCadastrados = JSON.parse(listaCadastrados);
 
-    res.render('admin', { title: 'Painel de controle', listaNewsletter, listaContato, usuario:req.session.usuario });
+
+    res.render('admin', { title: 'Painel de controle', listaNewsletter, listaContato, listaCadastrados, usuario:req.session.usuario });
   }
 };
 

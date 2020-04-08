@@ -4,9 +4,24 @@ const {check, validationResult, body} = require('express-validator');
 const path = require('path');
 const fs = require('fs');
 const auth = require('../middlewares/auth');
+const multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join('public/uploads'))
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname )
+    }
+  })
+  var upload = multer({ storage: storage })
 
 const homeController = require('../controllers/homeController');
 const adminController = require('../controllers/adminController');
+
+
+   
+ 
 
 
 router.get('/', homeController.index);
@@ -14,7 +29,7 @@ router.post('/contato', homeController.contato);
 router.get('/newsletter', homeController.newsletter);
 
 router.get('/cadastro', homeController.pagCadastro);
-router.post('/cadastro',[
+router.post('/cadastro',upload.any(),[
     check('nome').isLength({min:3}).withMessage("O nome deve conter no minímo 3 caracteres"),
     check('senha').isLength({min:3}).withMessage("A senha deve conter no minímo 3 caracteres"),
     body('email').custom( email => {

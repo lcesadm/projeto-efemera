@@ -2,7 +2,37 @@
 <main class="container py-5 my-5">
 
   <h1>Painel de controle</h1>
-  <h4>Olá <%= usuario.nome %></h4>
+  <div class="d-flex mt-4   ">
+    <img src="/uploads/<%= usuario.avatar %> "alt="avatar" width="50px" />
+    <h4>Olá <%= usuario.nome %></h4>
+  </div>
+
+  <hr class="my-5">
+  <section>
+    <h3 class="mb-3" >Usuários cadastrados</h3>
+    <table class="table table-striped"> 
+      <thead>
+        <tr class="row">
+          <th class="col">Nome</th>
+          <th class="col">E-mail</th>
+        </tr>    
+     <tbody>
+      <% for(cadastrados of listaCadastrados) { %>
+        <tr class="row">
+          <td class="col">
+            <div class="d-flex ">
+              <img class="mr-3" src="/uploads/<%= cadastrados.avatar %>" alt="foto usuário" width="30px ">
+              <%= cadastrados.nome %>
+          </div>
+          </td>
+          <td class="col">
+            <%= cadastrados.email %>
+          </td>          
+        </tr>
+      <%  } %>
+     </tbody>
+    </table>
+  </section>
 
   <hr class="my-5">
   <section>

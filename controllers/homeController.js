@@ -79,10 +79,10 @@ const homeController = {
     if(listaErrors.isEmpty()){
 
       let {nome, email, senha} = req.body;
-
+      let {files} = req;
       let senhaC = bcrypt.hashSync(senha,10);
 
-      let dadosUsuarios = {nome, email, senha:senhaC};
+      let dadosUsuarios = {nome, email, senha:senhaC, avatar:files[0].originalname};
       let usuarios = [];
 
       let caminho = path.join('db', 'usuarios.json');
@@ -91,6 +91,8 @@ const homeController = {
         usuarios = fs.readFileSync(caminho, {encoding : 'utf-8'} );
         usuarios = JSON.parse(usuarios);
       }
+      
+      
 
       usuarios.push(dadosUsuarios);
       usuarios = JSON.stringify(usuarios);
